@@ -21,6 +21,7 @@ class CreateEventsTable extends Migration
             $table->foreign('event_category_id')->references('category_id')->on('categories');
             $table->string('event_name', 150);
             $table->string('event_address',255);
+            $table->string('event_image',200);
             $table->date('event_date');
             $table->time('event_time');
             $table->timestamps();

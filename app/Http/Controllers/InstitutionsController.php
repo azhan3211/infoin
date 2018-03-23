@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Institutions;
 
 class InstitutionsController extends Controller
 {
@@ -14,6 +15,7 @@ class InstitutionsController extends Controller
     public function index()
     {
         //
+        return Institutions::all();
     }
 
     /**
@@ -23,7 +25,7 @@ class InstitutionsController extends Controller
      */
     public function create()
     {
-        //
+        //untuk menampilkan form pengisian data baru
     }
 
     /**
@@ -34,7 +36,11 @@ class InstitutionsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //untuk menyimpan data baru ke database
+        $institution = new Institutions;
+        $institution->institution_id = $request->input('institution_id');
+        $institution->institution_name = $request->input('institution_name');
+        $institution->save();
     }
 
     /**
@@ -45,7 +51,8 @@ class InstitutionsController extends Controller
      */
     public function show($id)
     {
-        //
+        //untuk menampilkan data spesifik
+        return Institutions::where('institution_id', $id)->first();
     }
 
     /**
@@ -56,7 +63,9 @@ class InstitutionsController extends Controller
      */
     public function edit($id)
     {
-        //
+        //untuk menampilkan data spesifik ke form untuk diubah
+        $institution = Institutions::where('institution_id',$id)->first();
+        // return view();
     }
 
     /**
@@ -68,7 +77,9 @@ class InstitutionsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //untuk mengubah data spesifik ke database
+        Institution::where('institution_id', $id)->update($request->all());
+        return redirect('/institution');
     }
 
     /**
@@ -79,6 +90,8 @@ class InstitutionsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        //untuk menghapus data spesifik di database
+        Institutions::where('institution_id', $id)->delete();
+        return redirect('/institution');
     }
 }

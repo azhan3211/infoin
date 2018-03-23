@@ -47,10 +47,10 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($category_id)
+    public function show($id)
     {
         //
-        return Category::all()->get($category_id-1);
+        return Category::where('category_id',$id)->first();
     }
 
     /**
@@ -62,6 +62,8 @@ class CategoryController extends Controller
     public function edit($id)
     {
         //
+        $category = Category::where('category_id', $id)->first();
+        // return view();
     }
 
     /**
@@ -74,6 +76,8 @@ class CategoryController extends Controller
     public function update(Request $request, $id)
     {
         //
+        Category::where('category_id', $id)->update($request->all());
+        return redirect('/categories');
     }
 
     /**
@@ -85,5 +89,7 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         //
+        Category::where('category_id', $id)->delete();
+        return redirect('/categories');
     }
 }

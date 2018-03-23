@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Organizers;
 
 class OrganizersController extends Controller
 {
@@ -14,6 +15,7 @@ class OrganizersController extends Controller
     public function index()
     {
         //
+        return Organizers::all();
     }
 
     /**
@@ -35,6 +37,15 @@ class OrganizersController extends Controller
     public function store(Request $request)
     {
         //
+        $organizers = new Organizers;
+        $organizers->organizer_id = $request->input('organizer_id');
+        $organizers->organizer_name = $request->input('organizer_name');
+        $organizers->organizer_password = $request->input('organizer_password');
+        $organizers->organizer_email = $request->input('organizer_email');
+        $organizers->organizer_phone = $request->input('organizer_phone');
+        $organizers->organizer_institution_id = $request->input('organizer_institution_id');
+        $organizers->organizer_status = $request->input('organizer_status');
+        $organizers->save();
     }
 
     /**
@@ -46,6 +57,7 @@ class OrganizersController extends Controller
     public function show($id)
     {
         //
+        return Organizers::where('organizer_id', $id)->first();
     }
 
     /**
@@ -57,6 +69,8 @@ class OrganizersController extends Controller
     public function edit($id)
     {
         //
+        $organizers = Organizers::where('organizer_id', $id)->first();
+        // return view('/');
     }
 
     /**
@@ -69,6 +83,8 @@ class OrganizersController extends Controller
     public function update(Request $request, $id)
     {
         //
+        Organizers::where('organizer_id', $id)->update($request->all());
+        return redirect('/organizer');
     }
 
     /**
@@ -80,5 +96,7 @@ class OrganizersController extends Controller
     public function destroy($id)
     {
         //
+        Organizers::where('organizer_id', $id)->delete();
+        return redirect('/organizer');
     }
 }

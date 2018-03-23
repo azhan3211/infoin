@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\UsersInfoin;
 
 class UsersInfoinController extends Controller
 {
@@ -14,6 +15,7 @@ class UsersInfoinController extends Controller
     public function index()
     {
         //
+        return UsersInfoin::all();
     }
 
     /**
@@ -35,6 +37,20 @@ class UsersInfoinController extends Controller
     public function store(Request $request)
     {
         //
+        $userInfoin = new UsersInfoin;
+        $userInfoin->user_id = $request->input('user_id');
+        $userInfoin->user_id = $request->input('user_fullname');
+        $userInfoin->user_id = $request->input('user_email');
+        $userInfoin->user_id = $request->input('username');
+        $userInfoin->user_id = $request->input('user_password');
+        $userInfoin->user_id = $request->input('user_address');
+        $userInfoin->user_id = $request->input('user_phone');
+        $userInfoin->user_id = $request->input('user_institution_id');
+        $userInfoin->user_id = $request->input('user_status');
+        $userInfoin->user_id = $request->input('user_date_of_birth');
+        $userInfoin->user_id = $request->input('user_city');
+        $userInfoin->save();
+
     }
 
     /**
@@ -46,6 +62,7 @@ class UsersInfoinController extends Controller
     public function show($id)
     {
         //
+        return UsersInfoin::where('user_id', $id)->first();
     }
 
     /**
@@ -57,6 +74,8 @@ class UsersInfoinController extends Controller
     public function edit($id)
     {
         //
+        $userInfoin = UsersInfoin::where('user_id', $id)->first();
+        // return view();
     }
 
     /**
@@ -69,6 +88,8 @@ class UsersInfoinController extends Controller
     public function update(Request $request, $id)
     {
         //
+        UsersInfoin::where('user_id', $id)->update($request->all());
+        return redirect('/userinfoin');
     }
 
     /**
@@ -80,5 +101,7 @@ class UsersInfoinController extends Controller
     public function destroy($id)
     {
         //
+        UsersInfoin::where('user_id', $id)->delete();
+        return redirect('/userinfoin');
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Events;
 
 class EventController extends Controller
 {
@@ -14,6 +15,7 @@ class EventController extends Controller
     public function index()
     {
         //
+        return Events::all();
     }
 
     /**
@@ -34,7 +36,16 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // 
+        $event = new Events;
+        $event->event_organizer_id = $request->input('event_organizer_id');
+        $event->event_category_id = $request->input('event_category_id');
+        $event->event_name = $request->input('event_name');
+        $event->event_address = $request->input('event_address');
+        $event->event_date = $request->input('event_date');
+        $event->event_time = $requst->input('event_time');
+        $event->event_image = $request->input('event_image');
+        $event->save();
     }
 
     /**
@@ -46,6 +57,7 @@ class EventController extends Controller
     public function show($id)
     {
         //
+        return Events::where('event_id',$id)->first();
     }
 
     /**
@@ -57,6 +69,8 @@ class EventController extends Controller
     public function edit($id)
     {
         //
+        $event = Events::where('event_id', $id)->first();
+        // return view();
     }
 
     /**
@@ -69,6 +83,8 @@ class EventController extends Controller
     public function update(Request $request, $id)
     {
         //
+        Events::where('event_id', $id)->update($request->all());
+        return redirect('/event');
     }
 
     /**
@@ -80,5 +96,7 @@ class EventController extends Controller
     public function destroy($id)
     {
         //
+        Events::where('event_id', $id)->delete();
+        return redirect('/event');
     }
 }

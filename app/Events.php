@@ -14,6 +14,7 @@ class Events extends Model
         'event_name',
         'event_address',
         'event_date',
-        'event_time'
+        'event_time',
+        'event_image'
     ];
 }
